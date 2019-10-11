@@ -13,7 +13,7 @@ print ('Connected to network')
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(16, GPIO.IN)
-hueBridge=Bridge('192.168.1.7')
+hueBridge=Bridge('192.168.1.6')
 try:
         hueBridge.connect()
 except ImportError:
@@ -27,15 +27,6 @@ offendtime=datetime.time(10,0,0) # sunrise time
 
 startTime = offstarttime=datetime.time(21,0,0)
 
-while True:
-    currentTime = datetime.datetime.now().time()
-    if currentTime.hour >= 1 and datetime.datetime.now().time() < startTime:
-        print("a")
-        onTime = 600
-    else:
-        print(currentTime.hour)
-        print("b")
-        onTime = 5000
 
 #after 1:30am change light time on length to 30sec
 
@@ -58,7 +49,7 @@ while True:
                                 hueBridge.set_group(1, 'on', True) #Replace the number 1 with the light group number defined on Philips Hue. In my case Bedroom is 1.
                                 lightson=True
                                 j=0 
-                                time.sleep(onTime) # Let the lights run at least 10 minutes (1500 seconds) once they are on
+                                time.sleep(5000) # Let the lights run at least 10 minutes (1500 seconds) once they are on
                         time.sleep(1)
                         k=0
                 elif i==0:
