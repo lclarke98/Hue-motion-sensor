@@ -13,7 +13,7 @@ print ('Connected to network')
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(16, GPIO.IN)
-hueBridge=Bridge('192.168.1.6')
+hueBridge=Bridge('192.168.0.215')
 try:
         hueBridge.connect()
 except ImportError:
@@ -35,8 +35,7 @@ lightson=hueBridge.get_light(1, 'on')
 if lightson: print( "Lights are already on.")
 
 print ('Entering infinite loop...')
-j=0
-k=0
+
 while True:
         i=GPIO.input(16) #Replace 16 with the actual GPIO pin where you connected your motion sensor
         timestamp=datetime.datetime.now().time()
@@ -46,10 +45,10 @@ while True:
                         print (datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), ": Activity detected ", j, "time(s).")
                         if j==2:
                                 print ("Lights will be on for 5 Minutes")
-                                hueBridge.set_group(1, 'on', True) #Replace the number 1 with the light group number defined on Philips Hue. In my case Bedroom is 1.
+                                hueBridge.set_group(3, 'on', True) #Replace the number 1 with the light group number defined on Philips Hue. In my case Bedroom is 1.
                                 lightson=True
                                 j=0 
-                                time.sleep(5000) # Let the lights run at least 10 minutes (1500 seconds) once they are on
+                                time.sleep(120) # Let the lights run at least 10 minutes (1500 seconds) once they are on
                         time.sleep(1)
                         k=0
                 elif i==0:
